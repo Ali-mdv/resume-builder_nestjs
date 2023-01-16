@@ -5,6 +5,7 @@ import {
   Length,
   MaxLength,
 } from 'class-validator';
+import { IsMatchTo } from '../validator';
 
 export class SignupDto {
   @MaxLength(40)
@@ -24,9 +25,7 @@ export class SignupDto {
   @IsNotEmpty()
   password1: string;
 
-  @Length(6, 60, {
-    message: 'confirm password must be longer than 6 character',
-  })
+  @IsMatchTo('password1', { message: 'confirm password not match to password' })
   @IsNotEmpty()
   password2: string;
 }
