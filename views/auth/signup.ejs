@@ -12,6 +12,13 @@
             <span class="login100-form-title-1"> <%= view %> </span>
           </div>
           <form class="login100-form validate-form" method="post">
+            <% if(errors.length > 0){ %>
+            <ul class="list-group">
+              <% for(let e of errors){ %>
+              <li class="list-group-item list-group-item-danger"><%= e %></li>
+              <% } %>
+            </ul>
+            <% } %>
             <div class="wrap-input100 m-b-26">
               <span class="label-input100">First Name</span>
               <input
