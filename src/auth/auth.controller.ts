@@ -1,36 +1,39 @@
 import {
+  Body,
   Controller,
-  UseFilters,
   Get,
   Post,
-  Body,
-  Render,
   Redirect,
+  Render,
+  UseFilters,
   UseGuards,
 } from '@nestjs/common';
+import { LocalAuthGuard, AnonymousGuard } from './guard';
 import { AuthService } from './auth.service';
-import { SignupDto } from './dto';
+import { SigninDto, SignupDto } from './dto';
 import { BadRequestExceptionFilter } from './exception';
-import { LocalAuthGuard } from './guard';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Render('auth/signin')
+  @UseGuards(AnonymousGuard)
   @Get('signin')
   signin_get() {
     return this.authService.signin_get();
   }
 
   @Redirect('/resume')
+  @UseFilters(new BadRequestExceptionFilter())
   @UseGuards(LocalAuthGuard)
   @Post('signin')
-  signin() {
-    return this.authService.signin_post();
+  signin(@Body() dto: SigninDto) {
+    return this.authService.signin_post(dto);
   }
 
   @Render('auth/signup')
+  @UseGuards(AnonymousGuard)
   @Get('signup')
   signup_get() {
     return this.authService.signup_get();
@@ -38,6 +41,7 @@ export class AuthController {
 
   @Redirect('/auth/signin')
   @UseFilters(new BadRequestExceptionFilter())
+  @UseGuards(AnonymousGuard)
   @Post('signup')
   signup_post(@Body() dto: SignupDto) {
     return this.authService.signup_post(dto);

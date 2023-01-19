@@ -2,7 +2,7 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import { hash } from 'argon2';
 import { omit } from 'lodash';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { SignupDto } from './dto';
+import { SigninDto, SignupDto } from './dto';
 
 @Injectable()
 export class AuthService {
@@ -11,8 +11,11 @@ export class AuthService {
     return { view: 'sign in', dto: {}, errors: [] };
   }
 
-  signin_post() {
-    return { view: 'sign in', dto: {} };
+  async signin_post(dto: SigninDto) {
+    const user = await this.prisma.user.findUnique({
+      where: { email: dto.email },
+    });
+    return omit(user, ['password']);
   }
 
   signup_get() {

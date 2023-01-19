@@ -7,6 +7,16 @@ import {
 } from 'class-validator';
 import { IsMatchTo } from '../validator';
 
+export class SigninDto {
+  @MaxLength(60)
+  @IsEmail()
+  @IsNotEmpty({})
+  email: string;
+
+  @IsNotEmpty()
+  password: string;
+}
+
 export class SignupDto {
   @MaxLength(40)
   @IsOptional()
