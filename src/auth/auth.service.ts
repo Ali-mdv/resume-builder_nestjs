@@ -1,4 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
+import { hash } from 'argon2';
+import { omit } from 'lodash';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SignupDto } from './dto';
 
@@ -18,6 +20,22 @@ export class AuthService {
   }
 
   async signup_post(dto: SignupDto) {
-    return { view: 'sign up', dto: dto };
+    let user = await this.prisma.user.findUnique({
+      where: { email: dto.email },
+    });
+    if (user) {
+      throw new BadRequestException(['user with this email already exist']);
+    }
+
+    const hashPassword = await hash(dto.password1);
+    user = await this.prisma.user.create({
+      data: {
+        first: dto.first,
+        last: dto.last,
+        password: hashPassword,
+        email: dto.email,
+      },
+    });
+    return omit(user, ['password']);
   }
 }

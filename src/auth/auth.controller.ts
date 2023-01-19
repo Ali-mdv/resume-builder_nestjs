@@ -33,7 +33,7 @@ export class AuthController {
     return this.authService.signup_get();
   }
 
-  @Redirect('/resume')
+  @Redirect('/auth/signin')
   @UseFilters(new BadRequestExceptionFilter())
   @Post('signup')
   signup_post(@Body() dto: SignupDto) {
