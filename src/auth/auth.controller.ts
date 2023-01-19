@@ -6,10 +6,12 @@ import {
   Body,
   Render,
   Redirect,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignupDto } from './dto';
 import { BadRequestExceptionFilter } from './exception';
+import { LocalAuthGuard } from './guard';
 
 @Controller('auth')
 export class AuthController {
@@ -22,6 +24,7 @@ export class AuthController {
   }
 
   @Redirect('/resume')
+  @UseGuards(LocalAuthGuard)
   @Post('signin')
   signin() {
     return this.authService.signin_post();
