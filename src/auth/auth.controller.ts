@@ -13,7 +13,11 @@ import { Request } from 'express';
 import { LocalAuthGuard, AnonymousGuard } from './guard';
 import { AuthService } from './auth.service';
 import { SigninDto, SignupDto } from './dto';
-import { BadRequestExceptionFilter } from './exception';
+import {
+  BadRequestExceptionFilter,
+  UnauthorizedExceptionFilter,
+  NotAcceptableExceptionFilter,
+} from './exception';
 
 @Controller('auth')
 export class AuthController {
@@ -27,7 +31,11 @@ export class AuthController {
   }
 
   @Redirect('/resume')
-  @UseFilters(new BadRequestExceptionFilter())
+  @UseFilters(
+    new BadRequestExceptionFilter(),
+    new UnauthorizedExceptionFilter(),
+    new NotAcceptableExceptionFilter(),
+  )
   @UseGuards(LocalAuthGuard)
   @Post('signin')
   signin(@Body() dto: SigninDto) {
