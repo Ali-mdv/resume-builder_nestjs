@@ -1,6 +1,7 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { hash } from 'argon2';
 import { omit } from 'lodash';
+import { Request } from 'express';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SigninDto, SignupDto } from './dto';
 
@@ -20,6 +21,16 @@ export class AuthService {
 
   signup_get() {
     return { view: 'sign up', dto: {}, errors: [] };
+  }
+
+  signout(req: Request) {
+    req.logout((err) => {
+      console.log(err);
+    });
+    // req.session.destroy((err) => {
+    //   console.log(err);
+    // });
+    return { view: 'logout' };
   }
 
   async signup_post(dto: SignupDto) {
