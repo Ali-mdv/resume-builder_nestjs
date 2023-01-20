@@ -11,12 +11,27 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  first     String?  @db.VarChar(40)
-  last      String?  @db.VarChar(40)
-  password  String   @db.VarChar(128)
-  email     String   @unique @db.VarChar(60)
-  is_active Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String     @id @default(uuid())
+  first      String?    @db.VarChar(40)
+  last       String?    @db.VarChar(40)
+  password   String     @db.VarChar(128)
+  email      String     @unique @db.VarChar(60)
+  is_active  Boolean    @default(false)
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  basic_info BasicInfo?
+}
+
+model BasicInfo {
+  id       String   @id @default(uuid())
+  first    String   @db.VarChar(40)
+  last     String   @db.VarChar(40)
+  age      Int      @db.SmallInt
+  phone    String   @db.VarChar(12)
+  address  String   @db.VarChar(100)
+  skill    String[] @db.VarChar(20)
+  language String[] @db.VarChar(20)
+  about    String   @db.Text
+  user     User     @relation(fields: [user_id], references: [id])
+  user_id  String   @unique
 }
