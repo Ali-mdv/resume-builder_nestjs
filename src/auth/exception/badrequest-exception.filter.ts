@@ -17,7 +17,7 @@ export class BadRequestExceptionFilter implements ExceptionFilter {
     const errors = exception.getResponse()['message'];
     const view = request.originalUrl.split('/').pop();
 
-    response.status(status).render(`auth/${view}`, {
+    response.status(status).render(request.originalUrl.replace('/', ''), {
       view: view,
       dto: request.body,
       errors: errors,
