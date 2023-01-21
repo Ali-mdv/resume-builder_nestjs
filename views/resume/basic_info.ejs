@@ -151,17 +151,17 @@
                     </div>
                     <div class="row mt-3">
                       <div class="col-sm-4">
-                        <strong class="text-uppercase">Skill:</strong>
+                        <strong class="text-uppercase">Business:</strong>
                       </div>
                       <div class="col-sm-8">
                         <select
                           class="form-control form-control-sm"
-                          name="skill[]"
+                          name="business[]"
                           multiple
                           required
                         >
-                          <% for(let s of skills){ %>
-                            <% if(dto.skill.includes(s)){ %>
+                          <% for(let s of businesses){ %>
+                            <% if(dto.business?.includes(s)){ %>
                               <option value="<%= s %>" selected><%= s %></option>
                             <% }else{ %>
                               <option value="<%= s %>"><%= s %></option>
@@ -182,7 +182,7 @@
                           required
                         >
                         <% for(let l of languages){ %>
-                          <% if(dto.language.includes(l)){ %>
+                          <% if(dto.language?.includes(l)){ %>
                             <option value="<%= l %>" selected><%= l %></option>
                           <% }else{ %>
                             <option value="<%= l %>"><%= l %></option>

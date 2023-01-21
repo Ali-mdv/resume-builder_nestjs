@@ -1,4 +1,4 @@
-export const SKILLS: readonly string[] = [
+export const BUSINESSES: readonly string[] = [
   'Office suites',
   'Social media',
   'Database',

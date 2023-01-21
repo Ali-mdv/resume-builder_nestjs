@@ -41,7 +41,7 @@ export class BasicInfoDto {
 
   @IsArray({ message: 'select an option is required.' })
   @IsNotEmpty()
-  skill: string[];
+  business: string[];
 
   @IsArray({ message: 'select an option is required.' })
   @IsNotEmpty()

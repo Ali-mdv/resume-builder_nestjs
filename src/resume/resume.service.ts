@@ -3,7 +3,7 @@ import { User } from '@prisma/client';
 import { pick } from 'lodash';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { BasicInfoDto } from './dto';
-import { SKILLS, LANGUAGES } from './static_data';
+import { BUSINESSES, LANGUAGES } from './static_data';
 
 @Injectable()
 export class ResumeService {
@@ -15,7 +15,7 @@ export class ResumeService {
       },
     });
 
-    return { view: 'resume', basicInfo };
+    return { view: 'resume', basicInfo: basicInfo || {} };
   }
 
   async basicInfo(user: User) {
@@ -29,7 +29,7 @@ export class ResumeService {
       view: 'basic_info',
       dto: basicInfo || pick(user, ['first', 'last', 'email']),
       languages: LANGUAGES,
-      skills: SKILLS,
+      businesses: BUSINESSES,
       errors: [],
     };
   }

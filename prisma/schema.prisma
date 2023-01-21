@@ -22,6 +22,14 @@ model User {
   basic_info BasicInfo?
 }
 
+model Skill {
+  id            String     @id @default(uuid())
+  title         String     @db.VarChar(40)
+  score         Int        @default(0) @db.SmallInt
+  BasicInfo     BasicInfo? @relation(fields: [basic_info_id], references: [id])
+  basic_info_id String?
+}
+
 model BasicInfo {
   id       String   @id @default(uuid())
   first    String   @db.VarChar(40)
@@ -30,7 +38,8 @@ model BasicInfo {
   age      Int      @db.SmallInt
   phone    String   @db.VarChar(12)
   address  String   @db.VarChar(100)
-  skill    String[] @db.VarChar(20)
+  business String[] @db.VarChar(20)
+  skills   Skill[]
   language String[] @db.VarChar(20)
   about    String   @db.Text
   user     User     @relation(fields: [user_id], references: [id])
