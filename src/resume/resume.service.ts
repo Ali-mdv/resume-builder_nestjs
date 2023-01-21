@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { User } from '@prisma/client';
 import { BasicInfoDto } from './dto';
 
 @Injectable()
@@ -11,8 +12,8 @@ export class ResumeService {
     return { view: 'basic_info', dto: {}, errors: [] };
   }
 
-  basicInfoPost(dto: BasicInfoDto) {
-    console.log(dto);
+  basicInfoPost(dto: BasicInfoDto, user: User) {
+    console.log(user);
     return { view: 'basic_info', dto: dto, errors: [] };
   }
 }

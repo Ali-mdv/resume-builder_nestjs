@@ -7,10 +7,12 @@ import {
   UseFilters,
   UseGuards,
 } from '@nestjs/common';
+import { User } from '@prisma/client';
 import { AuthenticatedGuard } from 'src/auth/guard';
 import { ResumeService } from './resume.service';
 import { BasicInfoDto } from './dto';
 import { BadRequestExceptionFilter } from '../auth/exception';
+import { getUser } from './decorator';
 
 @Controller('resume')
 export class ResumeController {
@@ -34,7 +36,7 @@ export class ResumeController {
   @UseFilters(new BadRequestExceptionFilter())
   @UseGuards(AuthenticatedGuard)
   @Post('basic_info')
-  basicInfoPost(@Body() dto: BasicInfoDto) {
-    return this.resumeService.basicInfoPost(dto);
+  basicInfoPost(@Body() dto: BasicInfoDto, @getUser() user: User) {
+    return this.resumeService.basicInfoPost(dto, user);
   }
 }
