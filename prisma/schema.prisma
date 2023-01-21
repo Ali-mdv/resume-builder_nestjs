@@ -26,6 +26,7 @@ model BasicInfo {
   id       String   @id @default(uuid())
   first    String   @db.VarChar(40)
   last     String   @db.VarChar(40)
+  email    String   @db.VarChar(60)
   age      Int      @db.SmallInt
   phone    String   @db.VarChar(12)
   address  String   @db.VarChar(100)

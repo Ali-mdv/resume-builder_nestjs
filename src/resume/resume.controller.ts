@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Post,
+  Redirect,
   Render,
   UseFilters,
   UseGuards,
@@ -28,11 +29,11 @@ export class ResumeController {
   @Render('resume/basic_info')
   @UseGuards(AuthenticatedGuard)
   @Get('basic_info')
-  basicInfo() {
-    return this.resumeService.basicInfo();
+  basicInfo(@getUser() user: User) {
+    return this.resumeService.basicInfo(user);
   }
 
-  @Render('resume/basic_info')
+  @Redirect('/resume/basic_info')
   @UseFilters(new BadRequestExceptionFilter())
   @UseGuards(AuthenticatedGuard)
   @Post('basic_info')
