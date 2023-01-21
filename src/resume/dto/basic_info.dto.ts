@@ -26,7 +26,9 @@ export class BasicInfoDto {
   email: string;
 
   @MaxLength(12)
-  @IsPhoneNumber('IR')
+  @IsPhoneNumber('IR', {
+    message: 'phonenumber format is wrong(exm:09121234567)',
+  })
   @IsNotEmpty()
   phone: string;
 
@@ -37,11 +39,11 @@ export class BasicInfoDto {
   @IsNotEmpty()
   about: string;
 
-  @IsArray()
+  @IsArray({ message: 'select an option is required.' })
   @IsNotEmpty()
   skill: string[];
 
-  @IsArray()
+  @IsArray({ message: 'select an option is required.' })
   @IsNotEmpty()
   language: string[];
 }
