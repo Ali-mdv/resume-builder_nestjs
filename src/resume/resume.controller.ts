@@ -22,8 +22,8 @@ export class ResumeController {
   @Render('resume/index')
   @UseGuards(AuthenticatedGuard)
   @Get()
-  resume() {
-    return this.resumeService.resume();
+  resume(@getUser() user: User) {
+    return this.resumeService.resume(user);
   }
 
   @Render('resume/basic_info')

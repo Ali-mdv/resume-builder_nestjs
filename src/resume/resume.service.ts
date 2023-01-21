@@ -8,8 +8,14 @@ import { SKILLS, LANGUAGES } from './static_data';
 @Injectable()
 export class ResumeService {
   constructor(private prisma: PrismaService) {}
-  resume() {
-    return { view: 'resume' };
+  async resume(user: User) {
+    const basicInfo = await this.prisma.basicInfo.findUnique({
+      where: {
+        user_id: user.id,
+      },
+    });
+
+    return { view: 'resume', basicInfo };
   }
 
   async basicInfo(user: User) {
