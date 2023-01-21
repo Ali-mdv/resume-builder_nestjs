@@ -3,6 +3,7 @@ import { User } from '@prisma/client';
 import { pick } from 'lodash';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { BasicInfoDto } from './dto';
+import { SKILLS, LANGUAGES } from './static_data';
 
 @Injectable()
 export class ResumeService {
@@ -17,9 +18,12 @@ export class ResumeService {
         user_id: user.id,
       },
     });
+
     return {
       view: 'basic_info',
       dto: basicInfo || pick(user, ['first', 'last', 'email']),
+      languages: LANGUAGES,
+      skills: SKILLS,
       errors: [],
     };
   }
@@ -30,7 +34,7 @@ export class ResumeService {
       update: { ...dto, age: Number(dto.age) },
       where: { user_id: user.id },
     });
-    console.log(basicInfo);
+
     return { view: 'basic_info', dto: basicInfo };
   }
 }

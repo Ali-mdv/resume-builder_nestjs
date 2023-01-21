@@ -160,12 +160,13 @@
                           multiple
                           required
                         >
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
+                          <% for(let s of skills){ %>
+                            <% if(dto.skill.includes(s)){ %>
+                              <option value="<%= s %>" selected><%= s %></option>
+                            <% }else{ %>
+                              <option value="<%= s %>"><%= s %></option>
+                            <% } %>
+                          <% } %>
                         </select>
                       </div>
                     </div>
@@ -180,12 +181,13 @@
                           multiple
                           required
                         >
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
+                        <% for(let l of languages){ %>
+                          <% if(dto.language.includes(l)){ %>
+                            <option value="<%= l %>" selected><%= l %></option>
+                          <% }else{ %>
+                            <option value="<%= l %>"><%= l %></option>
+                          <% } %>
+                        <% } %>
                         </select>
                       </div>
                     </div>
