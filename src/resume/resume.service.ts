@@ -13,6 +13,9 @@ export class ResumeService {
       where: {
         user_id: user.id,
       },
+      include: {
+        skills: true,
+      },
     });
 
     return { view: 'resume', basicInfo: basicInfo || {} };
@@ -51,8 +54,26 @@ export class ResumeService {
       errors: [],
     };
   }
-  skillsPost(dto: SkillsDto, user: User) {
-    console.log(dto);
-    return dto;
+  async skillsPost(dto: SkillsDto, user: User) {
+    if (dto.score > 0) {
+      const basicInfo = await this.prisma.basicInfo.findUnique({
+        where: {
+          user_id: user.id,
+        },
+        include: {
+          skills: true,
+        },
+      });
+
+      await this.prisma.skill.create({
+        data: {
+          title: dto.skill,
+          score: dto.score,
+          basic_info_id: basicInfo.id,
+        },
+      });
+    }
+
+    return { view: 'skills' };
   }
 }
