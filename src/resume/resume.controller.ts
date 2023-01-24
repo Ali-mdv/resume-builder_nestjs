@@ -11,7 +11,7 @@ import {
 import { User } from '@prisma/client';
 import { AuthenticatedGuard } from 'src/auth/guard';
 import { ResumeService } from './resume.service';
-import { BasicInfoDto } from './dto';
+import { BasicInfoDto, SkillsDto } from './dto';
 import { BadRequestExceptionFilter } from '../auth/exception';
 import { getUser } from './decorator';
 
@@ -44,15 +44,15 @@ export class ResumeController {
   @Render('resume/skills')
   @UseGuards(AuthenticatedGuard)
   @Get('skills')
-  skills(@getUser() user: User) {
-    return this.resumeService.skills(user);
+  skills() {
+    return this.resumeService.skills();
   }
 
   @Redirect('/resume/skills')
   @UseFilters(new BadRequestExceptionFilter())
   @UseGuards(AuthenticatedGuard)
   @Post('skills')
-  skillsPost(@Body() dto, @getUser() user: User) {
+  skillsPost(@Body() dto: SkillsDto, @getUser() user: User) {
     return this.resumeService.skillsPost(dto, user);
   }
 }

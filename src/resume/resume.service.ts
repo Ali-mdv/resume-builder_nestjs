@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { pick } from 'lodash';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { BasicInfoDto } from './dto';
+import { BasicInfoDto, SkillsDto } from './dto';
 import { BUSINESSES, LANGUAGES } from './static_data';
 
 @Injectable()
@@ -44,14 +44,14 @@ export class ResumeService {
     return { view: 'basic_info', dto: basicInfo };
   }
 
-  skills(user: User) {
+  skills() {
     return {
       view: 'skills',
-      businesses: BUSINESSES,
+      skills: BUSINESSES,
       errors: [],
     };
   }
-  skillsPost(dto, user: User) {
+  skillsPost(dto: SkillsDto, user: User) {
     console.log(dto);
     return dto;
   }
