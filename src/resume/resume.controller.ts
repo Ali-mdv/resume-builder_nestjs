@@ -40,4 +40,19 @@ export class ResumeController {
   basicInfoPost(@Body() dto: BasicInfoDto, @getUser() user: User) {
     return this.resumeService.basicInfoPost(dto, user);
   }
+
+  @Render('resume/skills')
+  @UseGuards(AuthenticatedGuard)
+  @Get('skills')
+  skills(@getUser() user: User) {
+    return this.resumeService.skills(user);
+  }
+
+  @Redirect('/resume/skills')
+  @UseFilters(new BadRequestExceptionFilter())
+  @UseGuards(AuthenticatedGuard)
+  @Post('skills')
+  skillsPost(@Body() dto, @getUser() user: User) {
+    return this.resumeService.skillsPost(dto, user);
+  }
 }

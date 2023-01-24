@@ -43,4 +43,16 @@ export class ResumeService {
 
     return { view: 'basic_info', dto: basicInfo };
   }
+
+  skills(user: User) {
+    return {
+      view: 'skills',
+      businesses: BUSINESSES,
+      errors: [],
+    };
+  }
+  skillsPost(dto, user: User) {
+    console.log(dto);
+    return dto;
+  }
 }

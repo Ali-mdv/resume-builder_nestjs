@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <%- include('./components/head'); -%>
+  <body id="top">
+    <div class="page-content">
+      <div class="section" id="about">
+        <div class="container">
+          <div class="card" data-aos="fade-up" data-aos-offset="10">
+            <form class="was-validated" novalidate method="post">
+              <% if(errors.length > 0){ %>
+              <ul class="list-group">
+                <% for(let e of errors){ %>
+                <li class="list-group-item list-group-item-danger"><%= e %></li>
+                <% } %>
+              </ul>
+              <% } %>
+              <div class="row">
+                <div class="col-lg-6 col-md-12">
+                  <div class="card-body">
+                    <label class="h4 mt-0 title" for="skill"
+                      >Professional Skills</label
+                    >
+                    <div class="form-group">
+                      <div class="row mt-3">
+                        <div class="col-sm-4">
+                          <label for="skill"
+                            ><strong class="text-uppercase"
+                              >Skill:</strong
+                            ></label
+                          >
+                        </div>
+                        <div class="col-sm-8">
+                          selectpicker
+                          <select
+                            class="form-control selectpicker"
+                            id="skill"
+                            name="skill"
+                            required
+                          >
+                            <% for(let s of businesses){ %>
+                            <option value="<%= s %>"><%= s %></option>
+                            <% } %>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6 col-md-12">
+                  <div class="card-body">
+                    <div class="form-group">
+                      <div class="row mt-3">
+                        <div class="col-sm-4">
+                          <label for="score"
+                            ><strong class="text-uppercase"
+                              >Score:</strong
+                            ></label
+                          >
+                        </div>
+                        <div class="col-sm-8">
+                          <input
+                            type="number"
+                            class="form-control"
+                            name="score"
+                            id="score"
+                            placeholder="score from 0 to 100"
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary ml-3 mb-2">
+                Add Skill
+              </button>
+              <button type="submit" class="btn btn-secondery ml-3 mb-2">
+                Next Section
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%- include('./components/scripts'); -%>
+  </body>
+</html>
