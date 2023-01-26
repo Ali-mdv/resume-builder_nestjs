@@ -131,11 +131,12 @@
             >
               <div class="card-body">
                 <div class="row">
-                  <% if(basicInfo.Skills){ %>
+                  <% if(basicInfo.skills){ %>
                     <% for(let skill of basicInfo.skills){ %>
                       <div class="col-md-6">
                         <div class="progress-container progress-primary">
-                          <span class="progress-badge"><%= skill.title %></span>
+                          <span class="progress-badge"><a href="/resume/skills/<%= skill.id %>"><%= skill.title %></a></span>
+                          <a class="progress-badge ml-2" href="/resume/skills/delete/<%= skill.id %>"><i class="fa fa-trash"></i></a>
                           <div class="progress">
                             <div
                               class="progress-bar progress-bar-primary"

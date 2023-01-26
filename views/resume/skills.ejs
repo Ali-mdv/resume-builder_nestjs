@@ -30,7 +30,6 @@
                           >
                         </div>
                         <div class="col-sm-8">
-                          selectpicker
                           <select
                             class="form-control selectpicker"
                             id="skill"
@@ -38,7 +37,11 @@
                             required
                           >
                             <% for(let s of skills){ %>
-                            <option value="<%= s %>"><%= s %></option>
+                              <% if(s === dto?.title){ %>
+                                <option value="<%= s %>" selected><%= s %></option>
+                              <% }else{ %>
+                                <option value="<%= s %>"><%= s %></option>
+                              <% } %>
                             <% } %>
                           </select>
                         </div>
@@ -66,7 +69,7 @@
                             name="score"
                             id="score"
                             placeholder="score from 0 to 100"
-                            value="dto?.score"
+                            value="<%= dto?.score %>"
                             required
                           />
                         </div>
@@ -76,11 +79,17 @@
                 </div>
               </div>
               <button type="submit" class="btn btn-primary ml-3 mb-2">
-                Add Skill
+                <% if(view === 'update_skills'){ %>
+                  Edit
+                <% }else{ %>
+                  Add
+                <% } %>
               </button>
-              <button type="submit" class="btn btn-secondery ml-3 mb-2">
-                Next Section
-              </button>
+              <% if(view === 'create_skills'){ %>
+                <button type="submit" class="btn btn-secondery ml-3 mb-2">
+                  Next Section
+                </button>
+              <% } %>
             </form>
           </div>
         </div>

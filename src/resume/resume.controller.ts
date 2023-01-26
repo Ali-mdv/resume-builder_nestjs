@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   Redirect,
   Render,
@@ -44,15 +45,41 @@ export class ResumeController {
   @Render('resume/skills')
   @UseGuards(AuthenticatedGuard)
   @Get('skills')
-  skills() {
+  skillsForm() {
     return this.resumeService.skills();
+  }
+
+  @Render('resume/skills')
+  @UseGuards(AuthenticatedGuard)
+  @Get('skills/:id')
+  skillsGet(@Param('id') id: string) {
+    return this.resumeService.skills(id);
   }
 
   @Redirect('/resume/skills')
   @UseFilters(new BadRequestExceptionFilter())
   @UseGuards(AuthenticatedGuard)
   @Post('skills')
-  skillsPost(@Body() dto: SkillsDto, @getUser() user: User) {
+  skillsCreate(@Body() dto: SkillsDto, @getUser() user: User) {
     return this.resumeService.skillsPost(dto, user);
+  }
+
+  @Redirect('/resume')
+  @UseFilters(new BadRequestExceptionFilter())
+  @UseGuards(AuthenticatedGuard)
+  @Post('skills/:id')
+  skillsUpdate(
+    @Body() dto: SkillsDto,
+    @getUser() user: User,
+    @Param('id') id: string,
+  ) {
+    return this.resumeService.skillsPost(dto, user, id);
+  }
+
+  @Redirect('/resume')
+  @UseGuards(AuthenticatedGuard)
+  @Get('skills/delete/:id')
+  skillsDelete(@Param('id') id: string) {
+    return this.resumeService.skillsDelete(id);
   }
 }

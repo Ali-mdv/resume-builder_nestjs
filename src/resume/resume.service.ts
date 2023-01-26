@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { pick } from 'lodash';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -47,33 +47,73 @@ export class ResumeService {
     return { view: 'basic_info', dto: basicInfo };
   }
 
-  skills() {
-    return {
-      view: 'skills',
+  async skills(id?: string) {
+    const locals = {
+      view: id ? 'update_skills' : 'create_skills',
       skills: BUSINESSES,
       errors: [],
+      dto: {},
     };
-  }
-  async skillsPost(dto: SkillsDto, user: User) {
-    if (dto.score > 0) {
-      const basicInfo = await this.prisma.basicInfo.findUnique({
+    if (id) {
+      const skill = await this.prisma.skill.findUnique({
         where: {
-          user_id: user.id,
-        },
-        include: {
-          skills: true,
+          id: id,
         },
       });
+      if (!skill) throw new NotFoundException();
+      locals['dto'] = skill;
+    }
+    return locals;
+  }
+  async skillsPost(dto: SkillsDto, user: User, id?: string) {
+    if (dto.score > 0) {
+      if (id) {
+        try {
+          await this.prisma.skill.update({
+            where: {
+              id: id,
+            },
+            data: {
+              title: dto.skill,
+              score: dto.score,
+            },
+          });
+        } catch (e) {
+          throw new NotFoundException();
+        }
+      } else {
+        const basicInfo = await this.prisma.basicInfo.findUnique({
+          where: {
+            user_id: user.id,
+          },
+          include: {
+            skills: true,
+          },
+        });
 
-      await this.prisma.skill.create({
-        data: {
-          title: dto.skill,
-          score: dto.score,
-          basic_info_id: basicInfo.id,
-        },
-      });
+        await this.prisma.skill.create({
+          data: {
+            title: dto.skill,
+            score: dto.score,
+            basic_info_id: basicInfo.id,
+          },
+        });
+      }
     }
 
-    return { view: 'skills' };
+    return { view: id ? 'update_skills' : 'create_skills' };
+  }
+
+  async skillsDelete(id: string) {
+    try {
+      await this.prisma.skill.delete({
+        where: {
+          id: id,
+        },
+      });
+    } catch (e) {
+      throw new NotFoundException();
+    }
+    return { view: 'delete_skills' };
   }
 }
