@@ -4,12 +4,13 @@ import {
   Get,
   Post,
   Req,
+  Res,
   Redirect,
   Render,
   UseFilters,
   UseGuards,
 } from '@nestjs/common';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { LocalAuthGuard, AnonymousGuard } from './guard';
 import { AuthService } from './auth.service';
 import { SigninDto, SignupDto } from './dto';
@@ -30,7 +31,7 @@ export class AuthController {
     return this.authService.signin_get();
   }
 
-  @Redirect('/resume')
+  // @Redirect('/resume')
   @UseFilters(
     new BadRequestExceptionFilter(),
     new UnauthorizedExceptionFilter(),
@@ -38,8 +39,8 @@ export class AuthController {
   )
   @UseGuards(LocalAuthGuard)
   @Post('signin')
-  signin(@Body() dto: SigninDto) {
-    return this.authService.signin_post(dto);
+  signin(@Body() dto: SigninDto, @Req() req: Request, @Res() res: Response) {
+    return this.authService.signin_post(dto, req, res);
   }
 
   @Redirect('/auth/signin')

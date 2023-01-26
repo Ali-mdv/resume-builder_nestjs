@@ -26,8 +26,6 @@ export class BadRequestExceptionFilter implements ExceptionFilter {
 
     if (view === 'skills') locals['skills'] = BUSINESSES;
 
-    response
-      .status(status)
-      .render(request.originalUrl.replace('/', ''), locals);
+    response.status(status).render(request.path.replace('/', ''), locals);
   }
 }

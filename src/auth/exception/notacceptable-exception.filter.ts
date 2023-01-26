@@ -16,7 +16,7 @@ export class NotAcceptableExceptionFilter implements ExceptionFilter {
 
     const view = request.originalUrl.split('/').pop();
 
-    response.status(status).render(`auth/${view}`, {
+    response.status(status).render(`${request.path.replace('/', '')}`, {
       view: view,
       dto: request.body,
       errors: 'email or password invalid.',

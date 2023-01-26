@@ -131,26 +131,28 @@
             >
               <div class="card-body">
                 <div class="row">
-                  <% for(let skill of basicInfo.skills){ %>
-                    <div class="col-md-6">
-                      <div class="progress-container progress-primary">
-                        <span class="progress-badge"><%= skill.title %></span>
-                        <div class="progress">
-                          <div
-                            class="progress-bar progress-bar-primary"
-                            data-aos="progress-full"
-                            data-aos-offset="10"
-                            data-aos-duration="2000"
-                            role="progressbar"
-                            aria-valuenow="<%= skill.score %>"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                            style="width: <%= skill.score %>%"
-                          ></div>
-                          <span class="progress-value"><%= skill.score %>%</span>
+                  <% if(basicInfo.Skills){ %>
+                    <% for(let skill of basicInfo.skills){ %>
+                      <div class="col-md-6">
+                        <div class="progress-container progress-primary">
+                          <span class="progress-badge"><%= skill.title %></span>
+                          <div class="progress">
+                            <div
+                              class="progress-bar progress-bar-primary"
+                              data-aos="progress-full"
+                              data-aos-offset="10"
+                              data-aos-duration="2000"
+                              role="progressbar"
+                              aria-valuenow="<%= skill.score %>"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              style="width: <%= skill.score %>%"
+                            ></div>
+                            <span class="progress-value"><%= skill.score %>%</span>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    <% } %>
                   <% } %>
                 </div>
               </div>

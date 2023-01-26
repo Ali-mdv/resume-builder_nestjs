@@ -1,7 +1,7 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { hash } from 'argon2';
 import { omit } from 'lodash';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SigninDto, SignupDto } from './dto';
 
@@ -12,11 +12,9 @@ export class AuthService {
     return { view: 'sign in', dto: {}, errors: [] };
   }
 
-  async signin_post(dto: SigninDto) {
-    const user = await this.prisma.user.findUnique({
-      where: { email: dto.email },
-    });
-    return omit(user, ['password']);
+  async signin_post(dto: SigninDto, req: Request, res: Response) {
+    // const url = req.query?.next || 'resume';
+    return res.redirect(`/${req.query?.next || 'resume'}`);
   }
 
   signup_get() {
