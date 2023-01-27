@@ -1,4 +1,36 @@
 export const BUSINESSES: readonly string[] = [
+  'Back-End Developer',
+  'Front-End Developer',
+  'Full-Stack Developer',
+  'SEO Engineer',
+  'Product Manager',
+  'Software Architect',
+  'CONTENT MANAGER',
+  'Data Analysts',
+  'DevOps Architect',
+  'DevOps Engineer',
+  'Android Developer',
+  'Web Developer',
+  'Cloud engineer',
+  'Game Developer',
+  'UI Developer',
+  'UX Developer',
+];
+
+export const LANGUAGES: readonly string[] = [
+  'English',
+  'Chinese',
+  'Spanish',
+  'Portuguese',
+  'Hindi',
+  'Russian',
+  'Korean',
+  'French',
+  'German',
+  'Persian',
+];
+
+export const SKILLS: readonly string[] = [
   'Office suites',
   'Social media',
   'Database',
@@ -47,17 +79,4 @@ export const BUSINESSES: readonly string[] = [
   'Critical thinking',
   'Attention to detail',
   'Adaptability',
-];
-
-export const LANGUAGES: readonly string[] = [
-  'English',
-  'Chinese',
-  'Spanish',
-  'Portuguese',
-  'Hindi',
-  'Russian',
-  'Korean',
-  'French',
-  'German',
-  'Persian',
 ];

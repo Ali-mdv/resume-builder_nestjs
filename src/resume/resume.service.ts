@@ -1,9 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { User } from '@prisma/client';
 import { pick } from 'lodash';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { BasicInfoDto, SkillsDto } from './dto';
-import { BUSINESSES, LANGUAGES } from './static_data';
+import { BUSINESSES, LANGUAGES, SKILLS } from './static_data';
 
 @Injectable()
 export class ResumeService {
@@ -14,7 +18,11 @@ export class ResumeService {
         user_id: user.id,
       },
       include: {
-        skills: true,
+        skills: {
+          orderBy: {
+            score: 'desc',
+          },
+        },
       },
     });
 
@@ -50,7 +58,7 @@ export class ResumeService {
   async skills(id?: string) {
     const locals = {
       view: id ? 'update_skills' : 'create_skills',
-      skills: BUSINESSES,
+      skills: SKILLS,
       errors: [],
       dto: {},
     };
@@ -99,6 +107,8 @@ export class ResumeService {
           },
         });
       }
+    } else {
+      throw new BadRequestException(['score must number between 1-100']);
     }
 
     return { view: id ? 'update_skills' : 'create_skills' };

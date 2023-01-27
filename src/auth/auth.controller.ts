@@ -15,7 +15,6 @@ import { LocalAuthGuard, AnonymousGuard } from './guard';
 import { AuthService } from './auth.service';
 import { SigninDto, SignupDto } from './dto';
 import {
-  BadRequestExceptionFilter,
   UnauthorizedExceptionFilter,
   NotAcceptableExceptionFilter,
 } from './exception';
@@ -33,7 +32,6 @@ export class AuthController {
 
   // @Redirect('/resume')
   @UseFilters(
-    new BadRequestExceptionFilter(),
     new UnauthorizedExceptionFilter(),
     new NotAcceptableExceptionFilter(),
   )
@@ -57,7 +55,6 @@ export class AuthController {
   }
 
   @Redirect('/auth/signin')
-  @UseFilters(new BadRequestExceptionFilter())
   @UseGuards(AnonymousGuard)
   @Post('signup')
   signup_post(@Body() dto: SignupDto) {

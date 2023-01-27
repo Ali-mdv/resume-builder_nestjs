@@ -5,7 +5,7 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { BUSINESSES } from '../../resume/static_data/index';
+import { BUSINESSES, LANGUAGES, SKILLS } from '../../resume/static_data/index';
 
 @Catch(BadRequestException)
 export class BadRequestExceptionFilter implements ExceptionFilter {
@@ -24,7 +24,11 @@ export class BadRequestExceptionFilter implements ExceptionFilter {
       errors: errors,
     };
 
-    if (view.includes('skills')) locals['skills'] = BUSINESSES;
+    if (view.includes('skills')) locals['skills'] = SKILLS;
+    if (view === 'basic_info') {
+      locals['businesses'] = BUSINESSES;
+      locals['languages'] = LANGUAGES;
+    }
 
     response.status(status).render(request.path.replace('/', ''), locals);
   }

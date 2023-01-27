@@ -5,7 +5,10 @@ import { join } from 'path';
 import { AppModule } from './app.module';
 import * as session from 'express-session';
 import * as passport from 'passport';
-import { ForbiddenExceptionFilter } from './auth/exception';
+import {
+  ForbiddenExceptionFilter,
+  BadRequestExceptionFilter,
+} from './auth/exception';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -16,7 +19,10 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
-  app.useGlobalFilters(new ForbiddenExceptionFilter());
+  app.useGlobalFilters(
+    new ForbiddenExceptionFilter(),
+    new BadRequestExceptionFilter(),
+  );
 
   app.use(
     session({
