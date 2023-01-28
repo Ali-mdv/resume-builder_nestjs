@@ -172,10 +172,12 @@
                     data-aos-offset="50"
                     data-aos-duration="500"
                   >
-                    <div class="card-body cc-education-header">
-                      <p><%= e.entrance.getFullYear() %> - <%= e.graduate.getFullYear() %></p>
-                      <div class="h5"><%= e.level %> Degree</div>
-                    </div>
+                    <a href="/resume/education/<%= e.id %>">
+                      <div class="card-body cc-education-header">
+                        <p><%= e.entrance.getFullYear() %> - <%= e.graduate.getFullYear() %></p>
+                        <div class="h5"><%= e.level %> Degree</div>
+                      </div>
+                    </a>
                   </div>
                   <div
                     class="col-md-9"

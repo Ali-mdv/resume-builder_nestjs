@@ -73,14 +73,30 @@ export class ResumeController {
 
   @Render('resume/education')
   @Get('education')
-  educationGet() {
+  getEducationForm() {
     return this.resumeService.getEducationForm();
+  }
+
+  @Render('resume/education')
+  @Get('education/:id')
+  updateEducationForm(@Param('id') id: string) {
+    return this.resumeService.getEducationForm(id);
   }
 
   @Redirect('/resume/education')
   @Post('education')
-  educationPost(@Body() dto: EducationDto, @getUser() user: User) {
+  educationPostCreate(@Body() dto: EducationDto, @getUser() user: User) {
     return this.resumeService.postEducationForm(dto, user);
+  }
+
+  @Redirect('/resume')
+  @Post('education/:id')
+  educationPostUpdate(
+    @Body() dto: EducationDto,
+    @getUser() user: User,
+    @Param('id') id: string,
+  ) {
+    return this.resumeService.postEducationForm(dto, user, id);
   }
 
   @Redirect('/resume')

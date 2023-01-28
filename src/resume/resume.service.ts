@@ -133,23 +133,50 @@ export class ResumeService {
     return { view: 'delete_skills' };
   }
 
-  getEducationForm() {
-    return {
+  async getEducationForm(id?: string) {
+    const locals = {
       levels: LEVELS,
       dto: {},
       errors: [],
-      view: 'Education Create Form',
+      view: id ? 'Update Education Form' : 'Create Education Form',
     };
+    if (id) {
+      const education = await this.prisma.education.findUnique({
+        where: {
+          id: id,
+        },
+      });
+      if (!education) throw new NotFoundException();
+
+      education['newEntrance'] = this.changeDateFormat(education.entrance);
+      education['newGraduate'] = this.changeDateFormat(education.graduate);
+      locals.dto = education;
+    }
+    return locals;
   }
 
-  async postEducationForm(dto: EducationDto, user: User) {
-    await this.prisma.education.create({
-      data: {
-        ...dto,
-        user_id: user.id,
-      },
-    });
-    return { view: 'Create Education' };
+  async postEducationForm(dto: EducationDto, user: User, id?: string) {
+    if (id) {
+      try {
+        await this.prisma.education.update({
+          where: {
+            id: id,
+          },
+          data: { ...dto },
+        });
+      } catch (e) {
+        throw new NotFoundException();
+      }
+    } else {
+      await this.prisma.education.create({
+        data: {
+          ...dto,
+          user_id: user.id,
+        },
+      });
+    }
+
+    return { view: id ? 'Update Education' : 'Create Education' };
   }
 
   async educationDelete(id: string) {
@@ -163,5 +190,18 @@ export class ResumeService {
       throw new NotFoundException();
     }
     return { view: 'Delete Education' };
+  }
+
+  /**
+   * Generates a new format date string for date input html.
+   *
+   * old '1/29/2022' => new "2022-09-29"
+   */
+  changeDateFormat(date: Date): string {
+    const oldFormat = date.toLocaleDateString().split('/');
+    const newFormat = `${String(oldFormat[2]).padStart(2, '0')}-${String(
+      oldFormat[0],
+    ).padStart(2, '0')}-${String(oldFormat[1]).padStart(2, '0')}`;
+    return newFormat;
   }
 }
