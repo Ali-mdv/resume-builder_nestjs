@@ -184,7 +184,10 @@
                     data-aos-duration="500"
                   >
                     <div class="card-body">
-                      <div class="h5"><%= e.field %>, Branch <%= e.branch %></div>
+                      <div class="h5">
+                        <%= e.field %>, Branch <%= e.branch %>
+                        <a class="progress-badge" style="float: right;" href="/resume/education/delete/<%= e.id %>"><i class="fa fa-trash"></i></a>
+                      </div>
                       <p class="category"><%= e.institute %></p>
                       <p>
                         <%= e.about %>

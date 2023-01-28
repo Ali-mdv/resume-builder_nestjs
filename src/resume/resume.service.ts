@@ -151,4 +151,17 @@ export class ResumeService {
     });
     return { view: 'Create Education' };
   }
+
+  async educationDelete(id: string) {
+    try {
+      await this.prisma.education.delete({
+        where: {
+          id: id,
+        },
+      });
+    } catch (e) {
+      throw new NotFoundException();
+    }
+    return { view: 'Delete Education' };
+  }
 }

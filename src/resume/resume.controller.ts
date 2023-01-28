@@ -82,4 +82,10 @@ export class ResumeController {
   educationPost(@Body() dto: EducationDto, @getUser() user: User) {
     return this.resumeService.postEducationForm(dto, user);
   }
+
+  @Redirect('/resume')
+  @Get('education/delete/:id')
+  educationDelete(@Param('id') id: string) {
+    return this.resumeService.educationDelete(id);
+  }
 }
