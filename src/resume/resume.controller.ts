@@ -11,7 +11,7 @@ import {
 import { User } from '@prisma/client';
 import { AuthenticatedGuard } from 'src/auth/guard';
 import { ResumeService } from './resume.service';
-import { BasicInfoDto, SkillsDto } from './dto';
+import { BasicInfoDto, SkillsDto, EducationDto } from './dto';
 import { getUser } from './decorator';
 
 @Controller('resume')
@@ -75,5 +75,11 @@ export class ResumeController {
   @Get('education')
   educationGet() {
     return this.resumeService.getEducationForm();
+  }
+
+  @Redirect('/resume/education')
+  @Post('education')
+  educationPost(@Body() dto: EducationDto, @getUser() user: User) {
+    return this.resumeService.postEducationForm(dto, user);
   }
 }

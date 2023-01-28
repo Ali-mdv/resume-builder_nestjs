@@ -6,7 +6,7 @@ import {
 import { User } from '@prisma/client';
 import { pick } from 'lodash';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { BasicInfoDto, SkillsDto } from './dto';
+import { BasicInfoDto, SkillsDto, EducationDto } from './dto';
 import { BUSINESSES, LANGUAGES, SKILLS, LEVELS } from './static_data';
 
 @Injectable()
@@ -129,5 +129,10 @@ export class ResumeService {
 
   getEducationForm() {
     return { levels: LEVELS, dto: {}, errors: [], view: 'Education Form' };
+  }
+
+  async postEducationForm(dto: EducationDto, user: User) {
+    console.log(dto);
+    return { view: 'Create Education' };
   }
 }
