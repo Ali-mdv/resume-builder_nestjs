@@ -79,7 +79,7 @@
                 <div class="col-lg-6 col-md-12">
                   <div class="card-body">
                     <div class="h4 mt-0 title">About</div>
-                    <%= basicInfo.about %>
+                    <%= basicInfo?.about %>
                   </div>
                 </div>
                 <div class="col-lg-6 col-md-12">
@@ -89,31 +89,31 @@
                       <div class="col-sm-4">
                         <strong class="text-uppercase">Age:</strong>
                       </div>
-                      <div class="col-sm-8"><%= basicInfo.age %></div>
+                      <div class="col-sm-8"><%= basicInfo?.age %></div>
                     </div>
                     <div class="row mt-3">
                       <div class="col-sm-4">
                         <strong class="text-uppercase">Email:</strong>
                       </div>
-                      <div class="col-sm-8"><%= basicInfo.email %></div>
+                      <div class="col-sm-8"><%= basicInfo?.email %></div>
                     </div>
                     <div class="row mt-3">
                       <div class="col-sm-4">
                         <strong class="text-uppercase">Phone:</strong>
                       </div>
-                      <div class="col-sm-8"><%= basicInfo.phone %></div>
+                      <div class="col-sm-8"><%= basicInfo?.phone %></div>
                     </div>
                     <div class="row mt-3">
                       <div class="col-sm-4">
                         <strong class="text-uppercase">Address:</strong>
                       </div>
-                      <div class="col-sm-8"><%= basicInfo.address %></div>
+                      <div class="col-sm-8"><%= basicInfo?.address %></div>
                     </div>
                     <div class="row mt-3">
                       <div class="col-sm-4">
                         <strong class="text-uppercase">Language:</strong>
                       </div>
-                      <div class="col-sm-8"><%= basicInfo.language?.join(', ') %></div>
+                      <div class="col-sm-8"><%= basicInfo?.language?.join(', ') %></div>
                     </div>
                   </div>
                 </div>
@@ -131,7 +131,7 @@
             >
               <div class="card-body">
                 <div class="row">
-                  <% if(basicInfo.skills){ %>
+                  <% if(basicInfo?.skills){ %>
                     <% for(let skill of basicInfo.skills){ %>
                       <div class="col-md-6">
                         <div class="progress-container progress-primary">
@@ -163,114 +163,37 @@
         <div class="section" id="education">
           <div class="container cc-education">
             <div class="h4 text-center mb-4 title">Education</div>
-            <div class="card">
-              <div class="row">
-                <div
-                  class="col-md-3 bg-primary"
-                  data-aos="fade-right"
-                  data-aos-offset="50"
-                  data-aos-duration="500"
-                >
-                  <div class="card-body cc-education-header">
-                    <p>2013 - 2015</p>
-                    <div class="h5">Master's Degree</div>
+            <% for(let e of educations) { %>
+              <div class="card">
+                <div class="row">
+                  <div
+                    class="col-md-3 bg-primary"
+                    data-aos="fade-right"
+                    data-aos-offset="50"
+                    data-aos-duration="500"
+                  >
+                    <div class="card-body cc-education-header">
+                      <p><%= e.entrance.getFullYear() %> - <%= e.graduate.getFullYear() %></p>
+                      <div class="h5"><%= e.level %> Degree</div>
+                    </div>
                   </div>
-                </div>
-                <div
-                  class="col-md-9"
-                  data-aos="fade-left"
-                  data-aos-offset="50"
-                  data-aos-duration="500"
-                >
-                  <div class="card-body">
-                    <div class="h5">Master of Information Technology</div>
-                    <p class="category">University of Computer Science</p>
-                    <p>
-                      Euismod massa scelerisque suspendisse fermentum habitant
-                      vitae ullamcorper magna quam iaculis, tristique sapien
-                      taciti mollis interdum sagittis libero nunc inceptos
-                      tellus, hendrerit vel eleifend primis lectus quisque
-                      cubilia sed mauris. Lacinia porta vestibulum diam integer
-                      quisque eros pulvinar curae, curabitur feugiat arcu
-                      vivamus parturient aliquet laoreet at, eu etiam pretium
-                      molestie ultricies sollicitudin dui.
-                    </p>
+                  <div
+                    class="col-md-9"
+                    data-aos="fade-left"
+                    data-aos-offset="50"
+                    data-aos-duration="500"
+                  >
+                    <div class="card-body">
+                      <div class="h5"><%= e.field %>, Branch <%= e.branch %></div>
+                      <p class="category"><%= e.institute %></p>
+                      <p>
+                        <%= e.about %>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="card">
-              <div class="row">
-                <div
-                  class="col-md-3 bg-primary"
-                  data-aos="fade-right"
-                  data-aos-offset="50"
-                  data-aos-duration="500"
-                >
-                  <div class="card-body cc-education-header">
-                    <p>2009 - 2013</p>
-                    <div class="h5">Bachelor's Degree</div>
-                  </div>
-                </div>
-                <div
-                  class="col-md-9"
-                  data-aos="fade-left"
-                  data-aos-offset="50"
-                  data-aos-duration="500"
-                >
-                  <div class="card-body">
-                    <div class="h5">Bachelor of Computer Science</div>
-                    <p class="category">University of Computer Science</p>
-                    <p>
-                      Euismod massa scelerisque suspendisse fermentum habitant
-                      vitae ullamcorper magna quam iaculis, tristique sapien
-                      taciti mollis interdum sagittis libero nunc inceptos
-                      tellus, hendrerit vel eleifend primis lectus quisque
-                      cubilia sed mauris. Lacinia porta vestibulum diam integer
-                      quisque eros pulvinar curae, curabitur feugiat arcu
-                      vivamus parturient aliquet laoreet at, eu etiam pretium
-                      molestie ultricies sollicitudin dui.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="row">
-                <div
-                  class="col-md-3 bg-primary"
-                  data-aos="fade-right"
-                  data-aos-offset="50"
-                  data-aos-duration="500"
-                >
-                  <div class="card-body cc-education-header">
-                    <p>2007 - 2009</p>
-                    <div class="h5">High School</div>
-                  </div>
-                </div>
-                <div
-                  class="col-md-9"
-                  data-aos="fade-left"
-                  data-aos-offset="50"
-                  data-aos-duration="500"
-                >
-                  <div class="card-body">
-                    <div class="h5">Science and Mathematics</div>
-                    <p class="category">School of Secondary board</p>
-                    <p>
-                      Euismod massa scelerisque suspendisse fermentum habitant
-                      vitae ullamcorper magna quam iaculis, tristique sapien
-                      taciti mollis interdum sagittis libero nunc inceptos
-                      tellus, hendrerit vel eleifend primis lectus quisque
-                      cubilia sed mauris. Lacinia porta vestibulum diam integer
-                      quisque eros pulvinar curae, curabitur feugiat arcu
-                      vivamus parturient aliquet laoreet at, eu etiam pretium
-                      molestie ultricies sollicitudin dui.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <% } %>
           </div>
         </div>
         <div class="section" id="experience">

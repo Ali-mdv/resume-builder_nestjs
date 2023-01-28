@@ -26,7 +26,13 @@ export class ResumeService {
       },
     });
 
-    return { view: 'resume', basicInfo: basicInfo || {} };
+    const educations = await this.prisma.education.findMany({
+      where: {
+        user_id: user.id,
+      },
+    });
+
+    return { view: 'resume', basicInfo, educations };
   }
 
   async basicInfo(user: User) {
@@ -128,11 +134,21 @@ export class ResumeService {
   }
 
   getEducationForm() {
-    return { levels: LEVELS, dto: {}, errors: [], view: 'Education Form' };
+    return {
+      levels: LEVELS,
+      dto: {},
+      errors: [],
+      view: 'Education Create Form',
+    };
   }
 
   async postEducationForm(dto: EducationDto, user: User) {
-    console.log(dto);
+    await this.prisma.education.create({
+      data: {
+        ...dto,
+        user_id: user.id,
+      },
+    });
     return { view: 'Create Education' };
   }
 }

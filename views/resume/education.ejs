@@ -158,10 +158,10 @@
                 </div>
               </div>
               <button type="submit" class="btn btn-primary ml-3 mb-2">
-                <% if(view === 'update_skills'){ %> Edit <% }else{ %> Add <% }
+                <% if(view.includes('Update')){ %> Edit <% }else{ %> Add <% }
                 %>
               </button>
-              <% if(view === 'create_skills'){ %>
+              <% if(view.includes('Create')){ %>
               <button type="submit" class="btn btn-secondery ml-3 mb-2">
                 Next Section
               </button>
