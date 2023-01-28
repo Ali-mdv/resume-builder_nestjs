@@ -7,7 +7,7 @@ import { User } from '@prisma/client';
 import { pick } from 'lodash';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { BasicInfoDto, SkillsDto } from './dto';
-import { BUSINESSES, LANGUAGES, SKILLS } from './static_data';
+import { BUSINESSES, LANGUAGES, SKILLS, LEVELS } from './static_data';
 
 @Injectable()
 export class ResumeService {
@@ -125,5 +125,9 @@ export class ResumeService {
       throw new NotFoundException();
     }
     return { view: 'delete_skills' };
+  }
+
+  getEducationForm() {
+    return { levels: LEVELS, dto: {}, errors: [], view: 'Education Form' };
   }
 }

@@ -70,4 +70,10 @@ export class ResumeController {
   skillsDelete(@Param('id') id: string) {
     return this.resumeService.skillsDelete(id);
   }
+
+  @Render('resume/education')
+  @Get('education')
+  educationGet() {
+    return this.resumeService.getEducationForm();
+  }
 }
