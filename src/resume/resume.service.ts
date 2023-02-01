@@ -6,7 +6,12 @@ import {
 import { User } from '@prisma/client';
 import { pick } from 'lodash';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { BasicInfoDto, SkillsDto, EducationDto } from './dto';
+import {
+  BasicInfoDto,
+  SkillsDto,
+  EducationDto,
+  WorkExperienceDto,
+} from './dto';
 import { BUSINESSES, LANGUAGES, SKILLS, LEVELS } from './static_data';
 
 @Injectable()
@@ -198,6 +203,16 @@ export class ResumeService {
       errors: [],
       view: 'Create Work Experience Form',
     };
+  }
+
+  async postWorkExperience(dto: WorkExperienceDto, user: User) {
+    if (dto.present) {
+      delete dto.finish;
+    }
+    await this.prisma.workExperience.create({
+      data: { ...dto, user_id: user.id },
+    });
+    return { view: 'Create WorkExperience' };
   }
 
   /**
