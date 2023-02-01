@@ -104,4 +104,10 @@ export class ResumeController {
   educationDelete(@Param('id') id: string) {
     return this.resumeService.educationDelete(id);
   }
+
+  @Render('resume/work_experience')
+  @Get('work_experience')
+  getWorkExperienceForm() {
+    return this.resumeService.getWorkExperienceForm();
+  }
 }

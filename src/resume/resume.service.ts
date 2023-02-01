@@ -192,6 +192,14 @@ export class ResumeService {
     return { view: 'Delete Education' };
   }
 
+  getWorkExperienceForm() {
+    return {
+      dto: {},
+      errors: [],
+      view: 'Create Work Experience Form',
+    };
+  }
+
   /**
    * Generates a new format date string for date input html.
    *

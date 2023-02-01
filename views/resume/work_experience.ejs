@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <%- include('./components/head'); -%>
+  <body id="top">
+    <div class="page-content">
+      <div class="section" id="about">
+        <div class="container">
+          <div class="card" data-aos="fade-up" data-aos-offset="10">
+            <form class="was-validated" novalidate method="post">
+              <% if(errors.length > 0){ %>
+              <ul class="list-group">
+                <% for(let e of errors){ %>
+                <li class="list-group-item list-group-item-danger"><%= e %></li>
+                <% } %>
+              </ul>
+              <% } %>
+              <div class="row">
+                <div class="col-lg-6 col-md-12">
+                  <div class="card-body">
+                    <label class="h4 mt-0 title" for="job_position"
+                      >Work Experience</label
+                    >
+                    <div class="form-group">
+                      <div class="row mt-3">
+                        <div class="col-sm-4">
+                          <label for="job_position"
+                            ><strong class="text-uppercase"
+                              >Job Position:</strong
+                            ></label
+                          >
+                        </div>
+                        <div class="col-sm-8">
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="job_position"
+                            id="job_position"
+                            placeholder="Job Position"
+                            value="<%= dto?.job_position %>"
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <label for="company"
+                            ><strong class="text-uppercase"
+                              >Company:</strong
+                            ></label
+                          >
+                        </div>
+                        <div class="col-sm-8">
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="company"
+                            id="company"
+                            placeholder="Company"
+                            value="<%= dto?.company %>"
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <label for="start"
+                            ><strong class="text-uppercase"
+                              >Job Position Starting Date:</strong
+                            ></label
+                          >
+                        </div>
+                        <div class="col-sm-8">
+                          <input
+                            type="date"
+                            class="form-control"
+                            name="start"
+                            id="start"
+                            value="<%= dto?.newStart %>"
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <label for="finish"
+                            ><strong class="text-uppercase"
+                              >Job Position Finishing Date:</strong
+                            ></label
+                          >
+                        </div>
+                        <div class="col-sm-6">
+                          <input
+                            type="date"
+                            class="form-control"
+                            name="finish"
+                            id="finish"
+                            value="<%= dto?.newFinish %>"
+                            required
+                          />
+                        </div>
+                        <div class="col-sm-2">
+                          <input
+                            class="form-check-input"
+                            name="present"
+                            type="checkbox"
+                            id="defaultCheck1"
+                          />
+                          <label for="defaultCheck1"> Present </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <label for="job_description"
+                            ><strong class="text-uppercase"
+                              >Job Description:</strong
+                            ></label
+                          >
+                        </div>
+                        <div class="col-sm-8">
+                          <textarea
+                            class="form-control"
+                            name="job_description"
+                            id="job_description"
+                            rows="8"
+                            style="font-size: 12pt"
+                            required
+                          >
+<%= dto.job_description %></textarea
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary ml-3 mb-2">
+                <% if(view.includes('Update')){ %> Edit <% }else{ %> Add <% } %>
+              </button>
+              <% if(view.includes('Create')){ %>
+              <button type="submit" class="btn btn-secondery ml-3 mb-2">
+                Next Section
+              </button>
+              <% } %>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%- include('./components/scripts'); -%>
+  </body>
+</html>
