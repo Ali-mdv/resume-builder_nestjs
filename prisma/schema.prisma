@@ -11,16 +11,17 @@ datasource db {
 }
 
 model User {
-  id         String      @id @default(uuid())
-  first      String?     @db.VarChar(40)
-  last       String?     @db.VarChar(40)
-  password   String      @db.VarChar(128)
-  email      String      @unique @db.VarChar(60)
-  is_active  Boolean     @default(false)
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  basic_info BasicInfo?
-  education  Education[]
+  id              String           @id @default(uuid())
+  first           String?          @db.VarChar(40)
+  last            String?          @db.VarChar(40)
+  password        String           @db.VarChar(128)
+  email           String           @unique @db.VarChar(60)
+  is_active       Boolean          @default(false)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  basic_info      BasicInfo?
+  education       Education[]
+  work_experience WorkExperience[]
 }
 
 model Skill {
@@ -57,4 +58,16 @@ model Education {
   graduate  DateTime
   User      User?    @relation(fields: [user_id], references: [id])
   user_id   String?
+}
+
+model WorkExperience {
+  id              String    @id @default(uuid())
+  job_position    String    @db.VarChar(40)
+  company         String    @db.VarChar(50)
+  start           DateTime
+  finish          DateTime?
+  present         Boolean?
+  job_description String    @db.Text
+  User            User?     @relation(fields: [user_id], references: [id])
+  user_id         String?
 }
