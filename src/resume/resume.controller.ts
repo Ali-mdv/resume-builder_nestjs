@@ -124,4 +124,10 @@ export class ResumeController {
   ) {
     return this.resumeService.postWorkExperience(dto, user);
   }
+
+  @Render('resume/work_experience')
+  @Get('work_experience/:id')
+  updateWorkExperienceForm(@Param('id') id: string) {
+    return this.resumeService.getWorkExperienceForm(id);
+  }
 }

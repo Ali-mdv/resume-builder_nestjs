@@ -37,7 +37,19 @@ export class ResumeService {
       },
     });
 
-    return { view: 'resume', basicInfo, educations };
+    const workExperience = await this.prisma.workExperience.findMany({
+      where: {
+        user_id: user.id,
+      },
+    });
+
+    return {
+      view: 'resume',
+      basicInfo,
+      educations,
+      workExperience,
+      helper: this.DateStingFormat,
+    };
   }
 
   async basicInfo(user: User) {
@@ -197,12 +209,29 @@ export class ResumeService {
     return { view: 'Delete Education' };
   }
 
-  getWorkExperienceForm() {
-    return {
+  async getWorkExperienceForm(id?: string) {
+    const locals = {
       dto: {},
       errors: [],
-      view: 'Create Work Experience Form',
+      view: id ? 'Update Work Experience Form' : 'Create Work Experience Form',
     };
+    if (id) {
+      const workExperience = await this.prisma.workExperience.findUnique({
+        where: {
+          id: id,
+        },
+      });
+      if (!workExperience) throw new NotFoundException();
+
+      workExperience['newEntrance'] = this.changeDateFormat(
+        workExperience.start,
+      );
+      workExperience['newGraduate'] = this.changeDateFormat(
+        workExperience?.finish,
+      );
+      locals.dto = workExperience;
+    }
+    return locals;
   }
 
   async postWorkExperience(dto: WorkExperienceDto, user: User) {
@@ -226,5 +255,29 @@ export class ResumeService {
       oldFormat[0],
     ).padStart(2, '0')}-${String(oldFormat[1]).padStart(2, '0')}`;
     return newFormat;
+  }
+
+  /**
+   * Generates a new format date string show.
+   *
+   * date object => new "March 2022"
+   */
+  DateStingFormat(date: Date): string {
+    const monthNames = [
+      'Jan.',
+      'Feb.',
+      'Mar.',
+      'Apr.',
+      'May',
+      'June',
+      'July',
+      'Aug.',
+      'Sept.',
+      'Oct.',
+      'Nov.',
+      'Dec.',
+    ];
+
+    return `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
   }
 }
