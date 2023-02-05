@@ -8,6 +8,7 @@ import * as passport from 'passport';
 import {
   ForbiddenExceptionFilter,
   BadRequestExceptionFilter,
+  NotFoundExceptionFilter,
 } from './auth/exception';
 
 async function bootstrap() {
@@ -22,6 +23,7 @@ async function bootstrap() {
   app.useGlobalFilters(
     new ForbiddenExceptionFilter(),
     new BadRequestExceptionFilter(),
+    new NotFoundExceptionFilter(),
   );
 
   app.use(
