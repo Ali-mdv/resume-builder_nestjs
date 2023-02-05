@@ -228,14 +228,15 @@
                   data-aos-offset="50"
                   data-aos-duration="500"
                 >
-                  <div class="card-body cc-experience-header">
-                    <p><%= helper(we.start) %> - <% if(we.present){ %>
-                      Present
-                    <% }else{ %>
-                      <%= helper(we.finish) %>
-                    <% } %> </p>
-                    <div class="h5"><%= we.company %></div>
-                  </div>
+                  <a href="/resume/work_experience/<%= we.id %>">
+                    <div class="card-body cc-experience-header">
+                      <p>
+                        <%= helper(we.start) %> - <% if(we.present){ %> Present
+                        <% }else{ %> <%= helper(we.finish) %> <% } %>
+                      </p>
+                      <div class="h5"><%= we.company %></div>
+                    </div>
+                  </a>
                 </div>
                 <div
                   class="col-md-9"

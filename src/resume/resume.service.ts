@@ -223,24 +223,38 @@ export class ResumeService {
       });
       if (!workExperience) throw new NotFoundException();
 
-      workExperience['newEntrance'] = this.changeDateFormat(
-        workExperience.start,
-      );
-      workExperience['newGraduate'] = this.changeDateFormat(
-        workExperience?.finish,
-      );
+      workExperience['newStart'] = this.changeDateFormat(workExperience.start);
+      if (workExperience.finish) {
+        workExperience['newFinish'] = this.changeDateFormat(
+          workExperience?.finish,
+        );
+      }
+
       locals.dto = workExperience;
     }
     return locals;
   }
 
-  async postWorkExperience(dto: WorkExperienceDto, user: User) {
-    if (dto.present) {
-      delete dto.finish;
+  async postWorkExperience(dto: WorkExperienceDto, user: User, id?: string) {
+    dto.present ? (dto.finish = null) : (dto.present = false);
+
+    if (id) {
+      try {
+        await this.prisma.workExperience.update({
+          where: {
+            id: id,
+          },
+          data: { ...dto },
+        });
+      } catch (e) {
+        throw new NotFoundException();
+      }
+    } else {
+      await this.prisma.workExperience.create({
+        data: { ...dto, user_id: user.id },
+      });
     }
-    await this.prisma.workExperience.create({
-      data: { ...dto, user_id: user.id },
-    });
+
     return { view: 'Create WorkExperience' };
   }
 

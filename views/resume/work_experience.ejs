@@ -110,6 +110,9 @@
                             name="present"
                             type="checkbox"
                             id="defaultCheck1"
+                            <% if(dto?.present){ %>
+                              checked
+                            <% } %> 
                           />
                           <label for="defaultCheck1"> Present </label>
                         </div>

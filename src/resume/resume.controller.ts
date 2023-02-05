@@ -116,6 +116,12 @@ export class ResumeController {
     return this.resumeService.getWorkExperienceForm();
   }
 
+  @Render('resume/work_experience')
+  @Get('work_experience/:id')
+  updateWorkExperienceForm(@Param('id') id: string) {
+    return this.resumeService.getWorkExperienceForm(id);
+  }
+
   @Redirect('/resume/work_experience')
   @Post('work_experience')
   workExperiencePostCreate(
@@ -125,9 +131,13 @@ export class ResumeController {
     return this.resumeService.postWorkExperience(dto, user);
   }
 
-  @Render('resume/work_experience')
-  @Get('work_experience/:id')
-  updateWorkExperienceForm(@Param('id') id: string) {
-    return this.resumeService.getWorkExperienceForm(id);
+  @Redirect('/resume')
+  @Post('work_experience/:id')
+  workExperiencePostUpdate(
+    @Body() dto: WorkExperienceDto,
+    @getUser() user: User,
+    @Param('id') id: string,
+  ) {
+    return this.resumeService.postWorkExperience(dto, user, id);
   }
 }
