@@ -255,7 +255,7 @@ export class ResumeService {
       });
     }
 
-    return { view: 'Create WorkExperience' };
+    return { view: id ? 'Update Work Experience' : 'Create Work Experience' };
   }
 
   /**
@@ -269,6 +269,19 @@ export class ResumeService {
       oldFormat[0],
     ).padStart(2, '0')}-${String(oldFormat[1]).padStart(2, '0')}`;
     return newFormat;
+  }
+
+  async workExperienceDelete(id: string) {
+    try {
+      await this.prisma.workExperience.delete({
+        where: {
+          id: id,
+        },
+      });
+    } catch (e) {
+      throw new NotFoundException();
+    }
+    return { view: 'Delete Work Experience' };
   }
 
   /**

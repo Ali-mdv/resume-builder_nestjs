@@ -140,4 +140,10 @@ export class ResumeController {
   ) {
     return this.resumeService.postWorkExperience(dto, user, id);
   }
+
+  @Redirect('/resume')
+  @Get('work_experience/delete/:id')
+  workExperienceDelete(@Param('id') id: string) {
+    return this.resumeService.workExperienceDelete(id);
+  }
 }

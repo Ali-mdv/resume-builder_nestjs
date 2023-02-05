@@ -245,7 +245,15 @@
                   data-aos-duration="500"
                 >
                   <div class="card-body">
-                    <div class="h5"><%= we.job_position %></div>
+                    <div class="h5">
+                      <%= we.job_position %>
+                      <a
+                      class="progress-badge"
+                      style="float: right"
+                      href="/resume/work_experience/delete/<%= we.id %>"
+                      ><i class="fa fa-trash"></i
+                    ></a>
+                    </div>
                     <p><%= we.job_description %></p>
                   </div>
                 </div>
