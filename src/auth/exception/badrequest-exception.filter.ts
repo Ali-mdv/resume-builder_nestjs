@@ -36,6 +36,9 @@ export class BadRequestExceptionFilter implements ExceptionFilter {
     }
     if (view.includes('education')) locals['levels'] = LEVELS;
 
-    response.status(status).render(request.path.replace('/', ''), locals);
+    // remove uuid from url in update routes
+    const path = request.path.split('/').slice(0, 3).join('/').replace('/', '');
+
+    response.status(status).render(path, locals);
   }
 }
