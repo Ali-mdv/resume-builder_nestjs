@@ -122,6 +122,11 @@ export class ResumeService {
           },
         });
 
+        if (!basicInfo)
+          throw new BadRequestException([
+            'please first compelete your basic info',
+          ]);
+
         await this.prisma.skill.create({
           data: {
             title: dto.skill,
