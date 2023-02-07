@@ -19,9 +19,9 @@
                   <div class="cc-profile-image">
                     <a href="#"><img src="images/ali.jpeg" alt="Image" /></a>
                   </div>
-                  <div class="h2 title">Ali Mahdavi</div>
+                  <div class="h2 title"><%= basicInfo?.first %> <%= basicInfo?.last %></div>
                   <p class="category text-white">
-                    Web Developer, Graphic Designer, Photographer
+                    <%= basicInfo?.business.join(', ') %>
                   </p>
                   <a
                     class="btn btn-primary smooth-scroll mr-2"
@@ -78,13 +78,17 @@
               <div class="row">
                 <div class="col-lg-6 col-md-12">
                   <div class="card-body">
-                    <div class="h4 mt-0 title">About</div>
+                    <div class="h4 mt-0 title">
+                      <a href="/resume/basic_info" style="text-decoration: none;">About</a>
+                    </div>
                     <%= basicInfo?.about %>
                   </div>
                 </div>
                 <div class="col-lg-6 col-md-12">
                   <div class="card-body">
-                    <div class="h4 mt-0 title">Basic Information</div>
+                    <div class="h4 mt-0 title">
+                      <a href="/resume/basic_info" style="text-decoration: none;">Basic Information</a>
+                    </div>
                     <div class="row">
                       <div class="col-sm-4">
                         <strong class="text-uppercase">Age:</strong>
@@ -125,7 +129,9 @@
         </div>
         <div class="section" id="skill">
           <div class="container">
-            <div class="h4 text-center mb-4 title">Professional Skills</div>
+            <div class="h4 text-center mb-4 title">
+              <a href="/resume/skills" style="text-decoration: none;">Professional Skills</a>
+            </div>
             <div
               class="card"
               data-aos="fade-up"
@@ -171,7 +177,9 @@
         </div>
         <div class="section" id="education">
           <div class="container cc-education">
-            <div class="h4 text-center mb-4 title">Education</div>
+            <div class="h4 text-center mb-4 title">
+              <a href="/resume/education" style="text-decoration: none;">Education</a>
+            </div>
             <% for(let e of educations) { %>
             <div class="card">
               <div class="row">
@@ -218,7 +226,9 @@
         </div>
         <div class="section" id="experience">
           <div class="container cc-experience">
-            <div class="h4 text-center mb-4 title">Work Experience</div>
+            <div class="h4 text-center mb-4 title">
+              <a href="/resume/work_experience" style="text-decoration: none;">Work Experience</a>
+            </div>
             <% for(let we of workExperience){ %>
             <div class="card">
               <div class="row">

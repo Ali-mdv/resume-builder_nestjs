@@ -1,0 +1,22 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link <% if(view.includes('basic')){ %>
+        active
+    <% } %>" href="/resume/basic_info">Basic Info</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link <% if(view.includes('skills')){ %>
+        active
+    <% } %>" href="/resume/skills">Skills</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link <% if(view.includes('Education')){ %>
+        active
+    <% } %>" href="/resume/education">Education</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link <% if(view.includes('Work')){ %>
+        active
+    <% } %>" href="/resume/work_experience">Work Experience</a>
+  </li>
+</ul>
