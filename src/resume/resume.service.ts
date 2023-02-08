@@ -3,6 +3,8 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { Express } from 'express';
+import { extname } from 'path';
 import { User } from '@prisma/client';
 import { pick } from 'lodash';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -68,7 +70,18 @@ export class ResumeService {
     };
   }
 
-  async basicInfoPost(dto: BasicInfoDto, user: User) {
+  async basicInfoPost(
+    dto: BasicInfoDto,
+    file: Express.Multer.File,
+    user: User,
+  ) {
+    console.log(file);
+    if (file) {
+      if (!['.png', '.jpeg', '.jpg'].includes(extname(file.originalname)))
+        throw new BadRequestException(['file type must be image']);
+      if (file.size > 1000000)
+        throw new BadRequestException(['file size must be less than 1 mg']);
+    }
     const basicInfo = await this.prisma.basicInfo.upsert({
       create: { ...dto, age: Number(dto.age), user_id: user.id },
       update: { ...dto, age: Number(dto.age) },

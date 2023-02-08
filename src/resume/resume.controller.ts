@@ -7,6 +7,8 @@ import {
   Redirect,
   Render,
   UseGuards,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { AuthenticatedGuard } from 'src/auth/guard';
@@ -18,6 +20,8 @@ import {
   WorkExperienceDto,
 } from './dto';
 import { getUser } from './decorator';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Express } from 'express';
 
 @Controller('resume')
 @UseGuards(AuthenticatedGuard)
@@ -38,8 +42,17 @@ export class ResumeController {
 
   @Redirect('/resume/basic_info')
   @Post('basic_info')
-  basicInfoPost(@Body() dto: BasicInfoDto, @getUser() user: User) {
-    return this.resumeService.basicInfoPost(dto, user);
+  @UseInterceptors(
+    FileInterceptor('pro_pic', {
+      dest: 'public/images/pro_pic',
+    }),
+  )
+  basicInfoPost(
+    @Body() dto: BasicInfoDto,
+    @getUser() user: User,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.resumeService.basicInfoPost(dto, file, user);
   }
 
   @Render('resume/skills')
