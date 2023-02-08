@@ -76,6 +76,7 @@ export class ResumeService {
     user: User,
   ) {
     console.log(file);
+    const path = file?.path.replace('public', '');
     if (file) {
       if (!['.png', '.jpeg', '.jpg'].includes(extname(file.originalname)))
         throw new BadRequestException(['file type must be image']);
@@ -83,8 +84,8 @@ export class ResumeService {
         throw new BadRequestException(['file size must be less than 1 mg']);
     }
     const basicInfo = await this.prisma.basicInfo.upsert({
-      create: { ...dto, age: Number(dto.age), user_id: user.id },
-      update: { ...dto, age: Number(dto.age) },
+      create: { ...dto, age: Number(dto.age), pro_pic: path, user_id: user.id },
+      update: { ...dto, age: Number(dto.age), pro_pic: path },
       where: { user_id: user.id },
     });
 

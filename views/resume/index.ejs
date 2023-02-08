@@ -17,7 +17,12 @@
               <div class="container">
                 <div class="content-center">
                   <div class="cc-profile-image">
-                    <a href="#"><img src="images/ali.jpeg" alt="Image" /></a>
+                    <a href="#"><img src="<% if(basicInfo?.pro_pic) { %>
+                      <%= basicInfo.pro_pic %>
+                    <% }else{ %>
+                      images/default.png
+                    <% } %>
+                    " alt="Image" /></a>
                   </div>
                   <div class="h2 title"><%= basicInfo?.first %> <%= basicInfo?.last %></div>
                   <p class="category text-white">
