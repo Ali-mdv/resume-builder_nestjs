@@ -44,6 +44,7 @@ model BasicInfo {
   skills   Skill[]
   language String[] @db.VarChar(20)
   about    String   @db.Text
+  pro_pic  String?
   user     User     @relation(fields: [user_id], references: [id])
   user_id  String   @unique
 }
