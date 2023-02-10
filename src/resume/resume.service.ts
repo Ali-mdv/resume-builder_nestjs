@@ -24,12 +24,14 @@ export class ResumeService {
       where: {
         user_id: user.id,
       },
-      include: {
-        skills: {
-          orderBy: {
-            score: 'desc',
-          },
-        },
+    });
+
+    const skills = await this.prisma.skill.findMany({
+      where: {
+        user_id: user.id,
+      },
+      orderBy: {
+        score: 'desc',
       },
     });
 
@@ -48,6 +50,7 @@ export class ResumeService {
     return {
       view: 'resume',
       basicInfo,
+      skills,
       educations,
       workExperience,
       helper: this.DateStingFormat,
@@ -126,25 +129,11 @@ export class ResumeService {
           throw new NotFoundException();
         }
       } else {
-        const basicInfo = await this.prisma.basicInfo.findUnique({
-          where: {
-            user_id: user.id,
-          },
-          include: {
-            skills: true,
-          },
-        });
-
-        if (!basicInfo)
-          throw new BadRequestException([
-            'please first compelete your basic info',
-          ]);
-
         await this.prisma.skill.create({
           data: {
             title: dto.skill,
             score: dto.score,
-            basic_info_id: basicInfo.id,
+            user_id: user.id,
           },
         });
       }
