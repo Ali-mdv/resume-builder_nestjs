@@ -102,7 +102,6 @@
                             name="finish"
                             id="finish"
                             value="<%= dto?.newFinish %>"
-                            required
                           />
                         </div>
                         <div class="col-sm-2">
@@ -142,6 +141,46 @@
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                  <div class="card-body">
+                    <% for(let we of userWorkExperiences){ %>
+                      <div class="card">
+                        <div class="row">
+                          <div
+                            data-aos="fade-left"
+                            data-aos-offset="50"
+                            data-aos-duration="500"
+                          >
+                            <div class="card-body">
+                                <div class="h5">
+                                  <a style="text-decoration:none;" href="/resume/work_experience/<%= we.id %>">
+                                    <%= we.company %>
+                                  </a>
+                                </div>
+                              <div class="h5">
+                                <%= we.job_position %>
+                              </div>
+                              <p><%= we.job_description %></p>
+                              <p>
+                                <%= we.start.getFullYear() %> - 
+                                <% if(we.finish?.getFullYear()){ %>
+                                  <%=we.finish?.getFullYear() %>
+                                <% }else{ %>
+                                  Present
+                                <% } %>
+                                <a
+                                class="progress-badge"
+                                href="/resume/work_experience/delete/<%= we.id %>"
+                                ><i class="fa fa-trash"></i
+                                ></a>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <% } %>
                   </div>
                 </div>
               </div>

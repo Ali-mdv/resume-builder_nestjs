@@ -94,9 +94,16 @@ export class ResumeService {
     return { view: 'Basic Info Form', dto: basicInfo };
   }
 
-  async skills(id?: string) {
+  async skills(user: User, id?: string) {
+    const userSkills = await this.prisma.skill.findMany({
+      where: {
+        user_id: user.id,
+      },
+    });
+
     const locals = {
       view: id ? 'Update Skills Form' : 'Create Skills Form',
+      userSkills,
       skills: SKILLS,
       errors: [],
       dto: {},
@@ -110,6 +117,7 @@ export class ResumeService {
       if (!skill) throw new NotFoundException();
       locals['dto'] = skill;
     }
+
     return locals;
   }
   async skillsPost(dto: SkillsDto, user: User, id?: string) {
@@ -157,8 +165,15 @@ export class ResumeService {
     return { view: 'Delete Skill' };
   }
 
-  async getEducationForm(id?: string) {
+  async getEducationForm(user: User, id?: string) {
+    const userEducations = await this.prisma.education.findMany({
+      where: {
+        user_id: user.id,
+      },
+    });
+
     const locals = {
+      userEducations,
       levels: LEVELS,
       dto: {},
       errors: [],
@@ -216,8 +231,14 @@ export class ResumeService {
     return { view: 'Delete Education' };
   }
 
-  async getWorkExperienceForm(id?: string) {
+  async getWorkExperienceForm(user: User, id?: string) {
+    const userWorkExperiences = await this.prisma.workExperience.findMany({
+      where: {
+        user_id: user.id,
+      },
+    });
     const locals = {
+      userWorkExperiences,
       dto: {},
       errors: [],
       view: id ? 'Update Work Experience Form' : 'Create Work Experience Form',

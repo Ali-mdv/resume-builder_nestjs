@@ -57,14 +57,14 @@ export class ResumeController {
 
   @Render('resume/skills')
   @Get('skills')
-  skillsForm() {
-    return this.resumeService.skills();
+  skillsForm(@getUser() user: User) {
+    return this.resumeService.skills(user);
   }
 
   @Render('resume/skills')
   @Get('skills/:id')
-  skillsGet(@Param('id') id: string) {
-    return this.resumeService.skills(id);
+  skillsGet(@getUser() user: User, @Param('id') id: string) {
+    return this.resumeService.skills(user, id);
   }
 
   @Redirect('/resume/skills')
@@ -91,14 +91,14 @@ export class ResumeController {
 
   @Render('resume/education')
   @Get('education')
-  getEducationForm() {
-    return this.resumeService.getEducationForm();
+  getEducationForm(@getUser() user: User) {
+    return this.resumeService.getEducationForm(user);
   }
 
   @Render('resume/education')
   @Get('education/:id')
-  updateEducationForm(@Param('id') id: string) {
-    return this.resumeService.getEducationForm(id);
+  updateEducationForm(@getUser() user: User, @Param('id') id: string) {
+    return this.resumeService.getEducationForm(user, id);
   }
 
   @Redirect('/resume/education')
@@ -125,14 +125,14 @@ export class ResumeController {
 
   @Render('resume/work_experience')
   @Get('work_experience')
-  getWorkExperienceForm() {
-    return this.resumeService.getWorkExperienceForm();
+  getWorkExperienceForm(@getUser() user: User) {
+    return this.resumeService.getWorkExperienceForm(user);
   }
 
   @Render('resume/work_experience')
   @Get('work_experience/:id')
-  updateWorkExperienceForm(@Param('id') id: string) {
-    return this.resumeService.getWorkExperienceForm(id);
+  updateWorkExperienceForm(@getUser() user: User, @Param('id') id: string) {
+    return this.resumeService.getWorkExperienceForm(user, id);
   }
 
   @Redirect('/resume/work_experience')
