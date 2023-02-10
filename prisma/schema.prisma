@@ -20,16 +20,17 @@ model User {
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
   basic_info      BasicInfo?
+  skills          Skill[]
   education       Education[]
   work_experience WorkExperience[]
 }
 
 model Skill {
-  id            String     @id @default(uuid())
-  title         String     @db.VarChar(40)
-  score         Int        @default(0) @db.SmallInt
-  BasicInfo     BasicInfo? @relation(fields: [basic_info_id], references: [id])
-  basic_info_id String?
+  id      String  @id @default(uuid())
+  title   String  @db.VarChar(40)
+  score   Int     @default(0) @db.SmallInt
+  user    User?   @relation(fields: [user_id], references: [id])
+  user_id String?
 }
 
 model BasicInfo {
@@ -41,7 +42,6 @@ model BasicInfo {
   phone    String   @db.VarChar(12)
   address  String   @db.VarChar(100)
   business String[] @db.VarChar(20)
-  skills   Skill[]
   language String[] @db.VarChar(20)
   about    String   @db.Text
   pro_pic  String?

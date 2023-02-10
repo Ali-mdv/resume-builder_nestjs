@@ -24,12 +24,14 @@ export class ResumeService {
       where: {
         user_id: user.id,
       },
-      include: {
-        skills: {
-          orderBy: {
-            score: 'desc',
-          },
-        },
+    });
+
+    const skills = await this.prisma.skill.findMany({
+      where: {
+        user_id: user.id,
+      },
+      orderBy: {
+        score: 'desc',
       },
     });
 
@@ -48,6 +50,7 @@ export class ResumeService {
     return {
       view: 'resume',
       basicInfo,
+      skills,
       educations,
       workExperience,
       helper: this.DateStingFormat,
@@ -62,7 +65,7 @@ export class ResumeService {
     });
 
     return {
-      view: 'basic_info',
+      view: 'Basic Info Form',
       dto: basicInfo || pick(user, ['first', 'last', 'email']),
       languages: LANGUAGES,
       businesses: BUSINESSES,
@@ -75,7 +78,6 @@ export class ResumeService {
     file: Express.Multer.File,
     user: User,
   ) {
-    console.log(file);
     const path = file?.path.replace('public', '');
     if (file) {
       if (!['.png', '.jpeg', '.jpg'].includes(extname(file.originalname)))
@@ -84,17 +86,17 @@ export class ResumeService {
         throw new BadRequestException(['file size must be less than 1 mg']);
     }
     const basicInfo = await this.prisma.basicInfo.upsert({
-      create: { ...dto, age: Number(dto.age), pro_pic: path, user_id: user.id },
-      update: { ...dto, age: Number(dto.age), pro_pic: path },
+      create: { ...dto, pro_pic: path, user_id: user.id },
+      update: { ...dto, pro_pic: path },
       where: { user_id: user.id },
     });
 
-    return { view: 'basic_info', dto: basicInfo };
+    return { view: 'Basic Info Form', dto: basicInfo };
   }
 
   async skills(id?: string) {
     const locals = {
-      view: id ? 'update_skills' : 'create_skills',
+      view: id ? 'Update Skills Form' : 'Create Skills Form',
       skills: SKILLS,
       errors: [],
       dto: {},
@@ -127,25 +129,11 @@ export class ResumeService {
           throw new NotFoundException();
         }
       } else {
-        const basicInfo = await this.prisma.basicInfo.findUnique({
-          where: {
-            user_id: user.id,
-          },
-          include: {
-            skills: true,
-          },
-        });
-
-        if (!basicInfo)
-          throw new BadRequestException([
-            'please first compelete your basic info',
-          ]);
-
         await this.prisma.skill.create({
           data: {
             title: dto.skill,
             score: dto.score,
-            basic_info_id: basicInfo.id,
+            user_id: user.id,
           },
         });
       }
@@ -153,7 +141,7 @@ export class ResumeService {
       throw new BadRequestException(['score must number between 1-100']);
     }
 
-    return { view: id ? 'update_skills' : 'create_skills' };
+    return { view: id ? 'Update Skills Form' : 'Create Skills Form' };
   }
 
   async skillsDelete(id: string) {
@@ -166,7 +154,7 @@ export class ResumeService {
     } catch (e) {
       throw new NotFoundException();
     }
-    return { view: 'delete_skills' };
+    return { view: 'Delete Skill' };
   }
 
   async getEducationForm(id?: string) {

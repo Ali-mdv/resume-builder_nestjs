@@ -4,8 +4,9 @@ import {
   IsNotEmpty,
   IsPhoneNumber,
   MaxLength,
-  IsNumberString,
+  IsNumber,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class BasicInfoDto {
   @MaxLength(40)
@@ -16,7 +17,8 @@ export class BasicInfoDto {
   @IsNotEmpty()
   last: string;
 
-  @IsNumberString()
+  @Type(() => Number)
+  @IsNumber()
   @IsNotEmpty()
   age: number;
 

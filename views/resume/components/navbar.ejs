@@ -1,11 +1,14 @@
 <ul class="nav nav-tabs">
   <li class="nav-item">
-    <a class="nav-link <% if(view.includes('basic')){ %>
+    <a class="nav-link" href="/resume">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link <% if(view.includes('Info')){ %>
         active
     <% } %>" href="/resume/basic_info">Basic Info</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link <% if(view.includes('skills')){ %>
+    <a class="nav-link <% if(view.includes('Skills')){ %>
         active
     <% } %>" href="/resume/skills">Skills</a>
   </li>
