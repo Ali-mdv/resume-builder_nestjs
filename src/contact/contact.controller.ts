@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Render, Redirect } from '@nestjs/common';
+import { Body, Controller, Get, Post, Render } from '@nestjs/common';
 import { ContactService } from './contact.service';
 import { ContactDto } from './dto';
 
@@ -12,10 +12,9 @@ export class ContactController {
     return this.contactService.createContactForm();
   }
 
-  @Redirect('/contact')
+  @Render('contact')
   @Post()
   createContact(@Body() dto: ContactDto) {
-    console.log(dto);
     return this.contactService.createContact(dto);
   }
 }

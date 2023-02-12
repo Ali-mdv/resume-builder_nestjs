@@ -13,6 +13,12 @@
           <div class="cc-contact">
             <div class="row">
               <div class="col-md-9">
+                <% if(dto?.id){ %>
+                  <div class="alert alert-success" role="alert">
+                    you contact seccessfully send.
+                    Support ID is <%= dto.id %>
+                  </div>
+                <% } %>
                 <div class="card mb-0" data-aos="zoom-in">
                   <div class="h4 text-center title">Contact Me</div>
                   <div class="row">

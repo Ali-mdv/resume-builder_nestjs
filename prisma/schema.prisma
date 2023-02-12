@@ -76,6 +76,7 @@ model WorkExperience {
 model Contact {
   id       String   @id @default(uuid())
   fullName String   @db.VarChar(50)
+  email    String   @db.VarChar(60)
   subject  String   @db.VarChar(50)
   message  String   @db.Text
   created  DateTime @default(now())
