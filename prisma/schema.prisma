@@ -72,3 +72,11 @@ model WorkExperience {
   User            User?     @relation(fields: [user_id], references: [id])
   user_id         String?
 }
+
+model Contact {
+  id       String   @id @default(uuid())
+  fullName String   @db.VarChar(50)
+  subject  String   @db.VarChar(50)
+  message  String   @db.Text
+  created  DateTime @default(now())
+}
