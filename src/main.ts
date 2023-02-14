@@ -28,7 +28,7 @@ async function bootstrap() {
 
   app.use(
     session({
-      secret: 'keyboard',
+      secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
     }),

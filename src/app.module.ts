@@ -6,6 +6,12 @@ import { ResumeModule } from './resume/resume.module';
 import { ContactModule } from './contact/contact.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, AuthModule, ResumeModule, ContactModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    PrismaModule,
+    AuthModule,
+    ResumeModule,
+    ContactModule,
+  ],
 })
 export class AppModule {}

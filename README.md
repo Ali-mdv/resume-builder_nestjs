@@ -1,6 +1,6 @@
 ## Description
 
-resume-builder with nestjs, passport, prisma
+resume-builder with nestjs, passport, prisma, docker
 
 ## Installation
 
@@ -11,6 +11,7 @@ $ npm install
 ## Running the app
 
 ```bash
+$ docker-compose up
 # development
 $ npm run start
 
